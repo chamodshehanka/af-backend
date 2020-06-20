@@ -16,7 +16,7 @@ storeManager.post("/add", controller.addStoreManager);
 storeManager.put("/update", controller.updateStoreManager);
 
 // Delete storeManager
-storeManager.delete("/delete", controller.deleteStoreManager);
+storeManager.delete("/delete/:storeManagerId", controller.deleteStoreManager);
 
 // Get storeManager By ID
 storeManager.get("/get", controller.getStoreManagerByID);

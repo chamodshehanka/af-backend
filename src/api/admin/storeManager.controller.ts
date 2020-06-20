@@ -41,6 +41,43 @@ export default class storeManagerController {
   };
 
   
+  // /**
+  //  * Update storeManager
+  //  * @param storeManagerId id of the storeManager
+  //  * @param name name of the storeManager
+  //  * @param email storeManager email address
+  //  * @param contactNo storeManager contactNo
+  //  * @param password storeManager password
+  //  * @returns success or failure message
+  //  */
+  // public updateStoreManager = async (req: Request, res: Response): Promise<any> => {
+  //   const {_id, storeManagerId, name, email, password, contactNo} = req.body;
+  //   const collection: any = getCollection();
+
+  //   collection
+  //     .findOneAndUpdate(
+  //       {
+  //         _id: new mongodb.ObjectId(_id),
+  //       },
+  //       {
+  //         $set: {
+  //           name: name,
+  //           email: email,
+  //           password: password,
+  //           contactNo: contactNo,  
+  //         },
+  //       }
+  //     )
+  //     .then(() => {
+  //       res.send({ message: 'Succesfully Updated' });
+  //     })
+  //     .catch((err) => {
+  //       res.send({ message: 'Unable to Update' });
+  //       console.error(err);
+  //     });
+  // };
+
+    
   /**
    * Update storeManager
    * @param storeManagerId id of the storeManager
@@ -51,13 +88,13 @@ export default class storeManagerController {
    * @returns success or failure message
    */
   public updateStoreManager = async (req: Request, res: Response): Promise<any> => {
-    const { storeManagerId, name, email, password, contactNo} = req.body;
+    const {storeManagerId, name, email, password, contactNo} = req.body;
     const collection: any = getCollection();
 
     collection
       .findOneAndUpdate(
         {
-          _id: new mongodb.ObjectId(storeManagerId),
+          storeManagerId: storeManagerId,
         },
         {
           $set: {
@@ -76,27 +113,18 @@ export default class storeManagerController {
         console.error(err);
       });
   };
-  
+
   
 
-  /**
-   * Delete Store Manager
-   * @param storeManagerId id of the product
-   * @returns success or failure message
-   */
-  public deleteStoreManager = async (req: Request, res: Response): Promise<any> => {
+  public deleteStoreManager (req: Request, res: Response) {  
     const collection: any = getCollection();
-    const {storeManagerId} = req.body;
-
-    collection.remove({storeManagerId:storeManagerId}).then( (result) => {
-        res.send("Successfully Deleted!");
-    }).catch( (err) => {
-        res.send("Unable to delete!");
-        console.error(err);
+    collection.remove({ storeManagerId: req.params.storeManagerId}, (err, storeManagerId) => {
+        if(err){
+            res.send(err);
+        }
+        res.json({ message: 'Successfully deleted Store Manager!'});
     });
-};
-
-  
+}
 
   /**
    * Get storeManager by id
@@ -134,6 +162,7 @@ export default class storeManagerController {
           items = items.map((item) => {
             return {
               id: item._id,
+              storeManagerId: item.storeManagerId,
               name: item.name,
               email: item.email,
               password:item.password,
