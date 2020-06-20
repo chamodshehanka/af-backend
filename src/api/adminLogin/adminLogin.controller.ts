@@ -13,13 +13,12 @@ const jwt = require('jsonwebtoken');
 export default class adminLoginController {
 
   /**
-   * SignIn admin
+   * SignIn Clients
    * @param email
    * @returns token or failure message
    */
-  public login = async (req: Request, res: Response): Promise<any> => {
+  public AdminLogin = async (req: Request, res: Response): Promise<any> => {
     const collection: any = getCollection();
-    console.log(req.body);
     collection
       .findOne({ email: req.body.email })
       .then(async (user) => {
