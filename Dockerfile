@@ -1,23 +1,23 @@
-FROM node:10-alpine as build-stage
+FROM node:10-slim 
+
+RUN npm set progress=false && npm config set depth 0 && npm cache clean --force
+
+RUN npm i -g ts-node typescript
+
+RUN npm install ts-nats@next
+
+RUN mkdir /app
 
 WORKDIR /app
 
-COPY package*.json /app/
+COPY package*.json ./
 
-RUN npm install
+RUN npm i
 
-COPY ./ /app/
+COPY . .
+
+EXPOSE 4000
 
 RUN npm run build
 
-FROM nginx:1.13.12-alpine
-
-## Copy our default nginx config
-COPY nginx/default.conf /etc/nginx/conf.d/
-
-## Remove default nginx website
-RUN rm -rf /usr/share/nginx/html/*
-
-COPY --from=build-stage /app/build/ /usr/share/nginx/html
-
-CMD ["nginx", "-g", "daemon off;" ]
+CMD [ "npm", "run", "start" ]
