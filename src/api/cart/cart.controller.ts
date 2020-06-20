@@ -155,4 +155,31 @@ export default class CartController {
 
     res.send(cart);
   };
+
+  public cartReset = async (clientId: any): Promise<any> => {
+    const collection: any = getCollection();
+
+    try {
+      let cart = await collection.findOne({ clientId });
+
+      if (cart !== null) {
+        await collection
+          .findOneAndUpdate(
+            {
+              clientId: clientId,
+            },
+            {
+              $set: {
+                items: [],
+              },
+            }
+          )
+          .then(() => {
+            console.log('Cart Reset');
+          });
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
 }

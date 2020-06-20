@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { MongoHelper } from '../../config/mongodb.config';
 import OrderSchema from './order.class';
+import CartController from '../cart/cart.controller';
 
 const getCollection = () => {
   return MongoHelper.client.db('ShopDB').collection('orders');
@@ -54,14 +55,16 @@ export default class OrderController {
             .then(() => {
               // res.send(cart);
               console.log('cart reset');
+              const cartController = new CartController();
+              cartController.cartReset(clientId);
             });
         }
         // move
-        res.send({ message: 'Successfully Added' });
+        res.send({ success: true, message: 'Successfully Added' });
         res.end();
       })
       .catch((err) => {
-        res.send({ message: 'Unable to Add' });
+        res.send({ success: false, message: 'Unable to Add' });
         console.error(err);
       });
   };
