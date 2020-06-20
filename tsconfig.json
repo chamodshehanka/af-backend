@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "target": "es2017",
+    "module": "CommonJS",
+    "outDir": "dist",
+    "sourceMap": true,
+    "resolveJsonModule": true,
+    "lib": ["dom", "es2017"]
+  },
+  "include": ["**/*.ts"],
+  "exclude": ["node_modules/"]
+}
