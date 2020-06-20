@@ -9,7 +9,7 @@ adminLogin.get("/", (req, res) => {
   res.send("Response from Client NodeTS Server");
 });
 
-// Client Login
-adminLogin.post("/login",controller.login);
+// Client Login 
+adminLogin.post("/login",controller.AdminLogin);
 
 export default adminLogin;

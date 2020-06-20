@@ -26,7 +26,7 @@ router.use('/cart', carts);
 router.use('/comment', comments);
 router.use('/rating', ratings);
 router.use('/order', orders);
-router.use('/login', adminLogin);
+router.use('/adminLogin', adminLogin);
 router.use('/discount', dicounts);
 
 export default router;
