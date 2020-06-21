@@ -138,6 +138,7 @@ export default class ProductController {
         items = items.map((item) => {
           return {
             id: item._id,
+            productId:item.productId,
             name: item.name,
             category: item.category,
             description: item.description,
