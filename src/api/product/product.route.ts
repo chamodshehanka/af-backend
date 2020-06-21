@@ -11,12 +11,15 @@ products.post("/add", controller.addProduct);
 products.put("/update", controller.updateProduct);
 
 //Delete Product
-products.delete("/delete", controller.deleteProduct);
+products.delete("/delete/:id", controller.deleteProduct);
 
 //Get product by id
 products.get("/get/:id", controller.getProductByID);
 
 //Get All Products
 products.get("/list", controller.getProducts);
+
+//Add discount
+products.put("/adddiscount/", controller.setDiscount);
 
 export default products;
